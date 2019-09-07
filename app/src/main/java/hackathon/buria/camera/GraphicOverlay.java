@@ -18,6 +18,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
 
@@ -51,6 +52,8 @@ public class GraphicOverlay extends View {
     private float heightScaleFactor = 1.0f;
     private int facing = CameraSource.CAMERA_FACING_BACK;
     private final List<Graphic> graphics = new ArrayList<>();
+
+    private TextView sentenceView = null;
 
     /**
      * Base class for a custom graphics object to be rendered within the graphic overlay. Subclass
@@ -121,6 +124,16 @@ public class GraphicOverlay extends View {
 
     public GraphicOverlay(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public void setFullTextView(TextView textView)
+    {
+        this.sentenceView = textView;
+    }
+
+    public TextView getFullTextView()
+    {
+        return sentenceView;
     }
 
     /** Removes all graphics from the overlay. */
