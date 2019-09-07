@@ -37,7 +37,7 @@ public class AutoMLImageLabelerProcessor
 
     private static final String TAG = "AutoMLabel";
 
-    private static final String REMOTE_MODEL_NAME = "SignLangModel";
+    private static final String REMOTE_MODEL_NAME = "SignLangModelNew";
 
     private final FirebaseVisionImageLabeler detector;
 
