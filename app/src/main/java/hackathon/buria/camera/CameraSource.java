@@ -47,11 +47,6 @@ import java.util.Map;
  */
 @SuppressLint("MissingPermission")
 public class CameraSource {
-    @SuppressLint("InlinedApi")
-    public static final int CAMERA_FACING_BACK = CameraInfo.CAMERA_FACING_BACK;
-
-    @SuppressLint("InlinedApi")
-    public static final int CAMERA_FACING_FRONT = CameraInfo.CAMERA_FACING_FRONT;
 
     private static final String TAG = "CameraSource";
 
@@ -72,7 +67,7 @@ public class CameraSource {
 
     private Camera camera;
 
-    protected int facing = CAMERA_FACING_BACK;
+    protected int facing = CameraInfo.CAMERA_FACING_BACK;
 
     /**
      * Rotation of the device, and thus the associated preview images captured from the device. See
@@ -131,11 +126,6 @@ public class CameraSource {
         graphicOverlay.clear();
         processingRunnable = new FrameProcessingRunnable();
 
-        if (Camera.getNumberOfCameras() == 1) {
-            CameraInfo cameraInfo = new CameraInfo();
-            Camera.getCameraInfo(0, cameraInfo);
-            facing = cameraInfo.facing;
-        }
     }
 
     // ==============================================================================================
@@ -161,7 +151,6 @@ public class CameraSource {
      *
      * @throws IOException if the camera's preview texture or display could not be initialized
      */
-    @SuppressLint("MissingPermission")
     @RequiresPermission(Manifest.permission.CAMERA)
     public synchronized CameraSource start() throws IOException {
         if (camera != null) {
@@ -248,23 +237,14 @@ public class CameraSource {
         bytesToByteBuffer.clear();
     }
 
-    /** Changes the facing of the camera. */
-    public synchronized void setFacing(int facing) {
-        if ((facing != CAMERA_FACING_BACK) && (facing != CAMERA_FACING_FRONT)) {
-            throw new IllegalArgumentException("Invalid camera: " + facing);
-        }
-        this.facing = facing;
-    }
+
 
     /** Returns the preview size that is currently in use by the underlying camera. */
     public Size getPreviewSize() {
         return previewSize;
     }
 
-    /**
-     * Returns the selected camera; one of {@link #CAMERA_FACING_BACK} or {@link
-     * #CAMERA_FACING_FRONT}.
-     */
+
     public int getCameraFacing() {
         return facing;
     }

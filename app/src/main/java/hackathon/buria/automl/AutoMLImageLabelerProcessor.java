@@ -3,18 +3,15 @@ package hackathon.buria.automl;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.util.Log;
-
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.common.FirebaseMLException;
-import com.google.firebase.ml.common.modeldownload.FirebaseLocalModel;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelManager;
 import com.google.firebase.ml.common.modeldownload.FirebaseRemoteModel;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -22,7 +19,6 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceAutoMLImageLabelerOptions;
-
 
 import java.io.IOException;
 import java.util.List;
@@ -39,9 +35,8 @@ import hackathon.buria.camera.GraphicOverlay;
 public class AutoMLImageLabelerProcessor
         extends VisionProcessorBase<List<FirebaseVisionImageLabel>> {
 
-    private static final String TAG = "ODAutoMLILProcessor";
+    private static final String TAG = "AutoMLabel";
 
-    private static final String LOCAL_MODEL_NAME = "SignLangModel_local";
     private static final String REMOTE_MODEL_NAME = "SignLangModel";
 
     private final FirebaseVisionImageLabeler detector;
@@ -60,7 +55,7 @@ public class AutoMLImageLabelerProcessor
         FirebaseVisionOnDeviceAutoMLImageLabelerOptions.Builder optionsBuilder =
                 new FirebaseVisionOnDeviceAutoMLImageLabelerOptions.Builder().setConfidenceThreshold(0.5f);
 
-        optionsBuilder.setLocalModelName(LOCAL_MODEL_NAME).setRemoteModelName(REMOTE_MODEL_NAME);
+        optionsBuilder.setRemoteModelName(REMOTE_MODEL_NAME);
 
         detector =
                 FirebaseVision.getInstance().getOnDeviceAutoMLImageLabeler(optionsBuilder.build());

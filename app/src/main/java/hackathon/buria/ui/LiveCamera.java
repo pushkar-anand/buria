@@ -52,7 +52,7 @@ public class LiveCamera extends AppCompatActivity
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
         }
-        cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
+
             try {
                 AutoMLImageLabelerProcessor imageLabelerProcessor = new AutoMLImageLabelerProcessor(this);
                 cameraSource.setMachineLearningFrameProcessor(imageLabelerProcessor);
