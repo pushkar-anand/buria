@@ -21,6 +21,7 @@ import hackathon.buria.camera.CameraSource;
 import hackathon.buria.camera.CameraSourcePreview;
 import hackathon.buria.camera.GraphicOverlay;
 import hackathon.buria.helpers.PermissionHelper;
+import hackathon.buria.tts.SignLanguageTTS;
 
 public class LiveCamera extends AppCompatActivity
         implements OnRequestPermissionsResultCallback {
@@ -32,6 +33,7 @@ public class LiveCamera extends AppCompatActivity
     private GraphicOverlay graphicOverlay;
     private Button startBtn, stopBtn;
     private TextView fullView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class LiveCamera extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 cameraSource.stop();
+                String input = fullView.getText().toString();
+                new SignLanguageTTS(getApplicationContext(), input);
             }
         });
     }
