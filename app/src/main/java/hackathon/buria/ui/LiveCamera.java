@@ -2,14 +2,18 @@ package hackathon.buria.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
 
+import com.google.firebase.ml.common.FirebaseMLException;
+
 import java.io.IOException;
 
 import hackathon.buria.R;
+import hackathon.buria.automl.AutoMLImageLabelerProcessor;
 import hackathon.buria.camera.CameraSource;
 import hackathon.buria.camera.CameraSourcePreview;
 import hackathon.buria.camera.GraphicOverlay;
@@ -31,6 +35,9 @@ public class LiveCamera extends AppCompatActivity
 
         ph = new PermissionHelper(this);
 
+        preview = findViewById(R.id.firePreview);
+        graphicOverlay = findViewById(R.id.fireFaceOverlay);
+
         if (ph.areAllPermissionsGranted()) {
             createCameraSource();
             startCameraSource();
@@ -38,14 +45,18 @@ public class LiveCamera extends AppCompatActivity
             ph.requestPermissions();
         }
 
-        preview = findViewById(R.id.firePreview);
-        graphicOverlay = findViewById(R.id.fireFaceOverlay);
     }
 
     private void createCameraSource()
     {
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
+            try {
+                cameraSource.setMachineLearningFrameProcessor(new AutoMLImageLabelerProcessor(this));
+            } catch (FirebaseMLException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error creating processor.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
