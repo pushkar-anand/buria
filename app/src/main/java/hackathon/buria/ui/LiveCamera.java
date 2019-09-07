@@ -2,6 +2,9 @@ package hackathon.buria.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,11 +25,13 @@ import hackathon.buria.helpers.PermissionHelper;
 public class LiveCamera extends AppCompatActivity
         implements OnRequestPermissionsResultCallback {
 
+    private static final String TAG = "LIVE";
     private PermissionHelper ph;
     private CameraSource cameraSource = null;
     private CameraSourcePreview preview;
     private GraphicOverlay graphicOverlay;
-    private static final String TAG = "LIVE";
+    private Button startBtn, stopBtn;
+    private TextView fullView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,35 +40,53 @@ public class LiveCamera extends AppCompatActivity
 
         ph = new PermissionHelper(this);
 
+        fullView = findViewById(R.id.translationTv);
         preview = findViewById(R.id.firePreview);
         graphicOverlay = findViewById(R.id.fireFaceOverlay);
+        startBtn = findViewById(R.id.start_btn);
+        stopBtn = findViewById(R.id.stop_btn);
 
-        if (ph.areAllPermissionsGranted()) {
-            createCameraSource();
-            startCameraSource();
-        } else {
+        if (!ph.areAllPermissionsGranted()) {
             ph.requestPermissions();
+        } else {
+            createCameraSource();
         }
-
+        setupListeners();
+        graphicOverlay.setFullTextView(fullView);
     }
 
-    private void createCameraSource()
-    {
+    private void setupListeners() {
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fullView.setText("");
+                startCameraSource();
+            }
+        });
+
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cameraSource.stop();
+            }
+        });
+    }
+
+    private void createCameraSource() {
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
         }
 
-            try {
-                AutoMLImageLabelerProcessor imageLabelerProcessor = new AutoMLImageLabelerProcessor(this);
-                cameraSource.setMachineLearningFrameProcessor(imageLabelerProcessor);
-            } catch (FirebaseMLException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Error creating processor.", Toast.LENGTH_SHORT).show();
-            }
+        try {
+            AutoMLImageLabelerProcessor imageLabelerProcessor = new AutoMLImageLabelerProcessor(this);
+            cameraSource.setMachineLearningFrameProcessor(imageLabelerProcessor);
+        } catch (FirebaseMLException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error creating processor.", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void startCameraSource()
-    {
+    private void startCameraSource() {
         if (cameraSource != null) {
 
             try {
@@ -92,7 +115,6 @@ public class LiveCamera extends AppCompatActivity
 
         if (ph.areAllPermissionsGranted()) {
             createCameraSource();
-            startCameraSource();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
