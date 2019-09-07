@@ -28,16 +28,13 @@ import hackathon.buria.camera.CameraImageGraphic;
 import hackathon.buria.camera.FrameMetadata;
 import hackathon.buria.camera.GraphicOverlay;
 
-/**
- * AutoML image labeler Demo.
- */
 
 public class AutoMLImageLabelerProcessor
         extends VisionProcessorBase<List<FirebaseVisionImageLabel>> {
 
     private static final String TAG = "AutoMLabel";
 
-    private static final String REMOTE_MODEL_NAME = "SignLangModelNew";
+    private static final String REMOTE_MODEL_NAME = "SignLanguageModel";
 
     private final FirebaseVisionImageLabeler detector;
 
