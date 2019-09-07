@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "446332486687",
+    "firebase_url": "https://buria-5555c.firebaseio.com",
+    "project_id": "buria-5555c",
+    "storage_bucket": "buria-5555c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446332486687:android:55596a698de172b26dc12a",
+        "android_client_info": {
+          "package_name": "hackathon.buria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446332486687-vkfjr393r758tdlt6h2dqacq6j2s4k7b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hackathon.buria",
+            "certificate_hash": "91d7910d0f1746acde728465658955e1c4d86051"
+          }
+        },
+        {
+          "client_id": "446332486687-ieiaq0u35fpke0o26lfhat4cop9spgc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8EEF0GN642ZUaxycyGee6VD9UdsJ3WdQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446332486687-ieiaq0u35fpke0o26lfhat4cop9spgc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
