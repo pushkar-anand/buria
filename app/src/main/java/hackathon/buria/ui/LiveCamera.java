@@ -52,7 +52,8 @@ public class LiveCamera extends AppCompatActivity
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
             try {
-                cameraSource.setMachineLearningFrameProcessor(new AutoMLImageLabelerProcessor(this));
+                AutoMLImageLabelerProcessor imageLabelerProcessor = new AutoMLImageLabelerProcessor(this);
+                cameraSource.setMachineLearningFrameProcessor(imageLabelerProcessor);
             } catch (FirebaseMLException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Error creating processor.", Toast.LENGTH_SHORT).show();
