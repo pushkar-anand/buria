@@ -33,7 +33,7 @@ public class LiveCamera extends AppCompatActivity
     private GraphicOverlay graphicOverlay;
     private Button startBtn, stopBtn;
     private TextView fullView;
-
+    public static String lastAlpha = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

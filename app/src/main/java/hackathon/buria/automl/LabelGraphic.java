@@ -13,6 +13,7 @@ import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import java.util.List;
 
 import hackathon.buria.camera.GraphicOverlay;
+import hackathon.buria.ui.LiveCamera;
 
 /**
  * Graphic instance for rendering a label within an associated graphic overlay view.
@@ -56,8 +57,8 @@ public class LabelGraphic extends GraphicOverlay.Graphic {
             canvas.drawText(maxCLabelStr, x, y, textPaint);
             //y = y - 62.0f;
 
-            if (fullTextView != null) {
-
+            if (fullTextView != null && !maxCLabelStr.equals(LiveCamera.lastAlpha)) {
+                LiveCamera.lastAlpha = maxCLabelStr;
                 switch (maxCLabelStr) {
                     case "space":
                         fullTextView.append(" ");
